@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymyleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<title>Inventory</title>
+</head>
+<body>
+<div class="container">
+	<h2>Inventory</h2>
+	<hr>
+
+	<!-- Display username and role-->
+	<p>
+		Username: <span sec:authentication="principal.username"/>
+	</p>
+
+	<!-- Button to logout -->
+	<form th:action="@{/logout}" method="POST">
+		<input type="submit" name="logout" value="Logout" class="btn btn-primary btn-sm mb-3"/>
+	</form>
+	<hr>
+
+	<!-- Button to add item to inventory -->
+
+	<!-- Hide Action column unless have MANAGER role -->
+	<div sec:authorize="hasRole('MANAGER')">
+		<a th:href="@{/inventory/addItem}" class="btn btn-primary btn-sm mb-3">
+			Add Items
+		</a>
+	</div>
+
+	<!-- Table to display inventory -->
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+		<tr>
+			<th>Item name</th>
+			<th>Quantity</th>
+			<th>Cost</th>
+			<th>Unit</th>
+
+			<!-- Hide Action column unless have MANAGER role -->
+			<div sec:authorize="hasRole('MANAGER')">
+                <th>Action</th>
+			</div>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr th:each="item : ${items}">
+			<td th:text="${item.itemName}"/>
+			<td th:text="${item.quantity}"/>
+			<td th:text="${item.cost}"/>
+			<td th:text="${item.unit}"/>
+
+			<!-- Hide Action column unless have MANAGER role -->
+			<div sec:authorize="hasRole('MANAGER')">
+				<td>
+					<a th:href="@{/inventory/updateItem(id=${item.id})}"
+					   class="btn btn-info btn-sm">Update</a>
+					<a th:href="@{/inventory/deleteItem(id=${item.id})}"
+					   class="btn btn-danger btn-sm"
+					   onclick="if (!(confirm('Are you sure you want to delete this item?'))) return false">
+						Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+		</tbody>
+	</table>
+
+</div>
+</body>
+</html>
