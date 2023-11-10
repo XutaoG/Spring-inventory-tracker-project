@@ -1,4 +1,7 @@
 # Spring-inventory-tracker-project
+
+### Last updated: 11/23
+
 Spring MVC project with Thymeleaf integration
 
 Includes CRUD functions to create, read, update, and delete items from SQL database
