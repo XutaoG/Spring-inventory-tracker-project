@@ -1,4 +1,4 @@
-# Spring-inventory-tracker-project
+# spring-inventory-tracker-project
 
 ### Last updated: 11/23
 
