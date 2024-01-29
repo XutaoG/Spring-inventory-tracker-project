@@ -8,6 +8,6 @@ Includes CRUD functions to create, read, update, and delete items from SQL datab
 
 Uses HTML with Thymeleaf template to display inventory items
 
-Include Spring security to authenticate and authorize users based on role
+Includes Spring security authentication and authorization for role-based access control
 
 Include Spring validation to authenticate item information
